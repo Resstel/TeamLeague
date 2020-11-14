@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChildren, QueryList, ElementRef } from "@angular/core";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 
 @Component({
@@ -8,8 +8,17 @@ import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 })
 export class SampleformComponent implements OnInit {
   leagueForm: FormGroup;
-
+@ViewChildren("selectTeam") TeamSelects: QueryList<ElementRef<HTMLSelectElement>>;
   constructor(private fb: FormBuilder) {}
+  teamList = [
+    {id:1, name:"Real madrid"},
+    {id:2, name:"Fc barcalone"},
+    {id:3, name:"Atletico madrid"},
+    {id:4, name:"Fc seville"},
+    {id:5, name:"Valencia"}
+  ];
+
+  selectedTeams = new Set<string>();
 
   logToConsole(object: any) {
     console.log(object);
@@ -51,7 +60,25 @@ export class SampleformComponent implements OnInit {
     team.get("players").push(this.players);
   }
 
-  deletePlayer(team, index) {
+  deletePlayer(team, index, t: string) {
+    this.selectedTeams.delete(t);
     team.get("players").removeAt(index);
+  }
+
+  selected() {
+    this.selectedTeams.clear();
+    this.TeamSelects.forEach(ts => {
+      const selectedVal = ts.nativeElement.value;
+      if (selectedVal && selectedVal !== "undefined") this.selectedTeams.add(selectedVal);
+    });
+
+    this.selectedTeams.forEach(st => {
+      console.log(`selected team -> ${st}`);
+    });
+    console.log("==================================");
+  }
+
+  isSelected(lang: string) {
+    return this.selectedTeams.has(lang);
   }
 }

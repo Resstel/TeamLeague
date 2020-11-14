@@ -17,7 +17,14 @@
       [formGroupName]="teamIndex"
     >
       <label
-        >Team Name <input formControlName="team_name" />
+        >Team Name <select #selectTeam formControlName="team_name" (change)="selected(selectTeam.value,i)">
+          <option value="undefined" disabled> Select team</option>
+          <ng-container *ngFor="let T of teamList">
+            <option *ngIf="selectTeam.value === T.name || !isSelected(T.name)" value={{T.name}} [ngValue]="T.name">
+              {{T.name}}
+            </option>
+          </ng-container>
+          </select>
         <button (click)="deleteTeam(teamIndex)">x</button></label
       >
       <hr />
@@ -33,7 +40,7 @@
         >
           <label
             >Player Name <input formControlName="player_name" />
-            <button (click)="deletePlayer(team, playerIndex)">x</button></label
+            <button (click)="deletePlayer(team, playerIndex, selectTeam.value)">x</button></label
           >
           <label>Player Number <input formControlName="player_number"/></label>
           <span *ngIf="player.get('player_number').touched">touched!</span>
