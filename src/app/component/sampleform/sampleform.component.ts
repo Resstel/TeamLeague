@@ -18,7 +18,7 @@ export class SampleformComponent implements OnInit {
     {id:5, name:"Valencia"}
   ];
 
-  selectedTeams = new Set<string>();
+  selectedTeams = new Set<number>();
 
   logToConsole(object: any) {
     console.log(object);
@@ -61,7 +61,7 @@ export class SampleformComponent implements OnInit {
   }
 
   deletePlayer(team, index, t: string) {
-    this.selectedTeams.delete(t);
+    this.selectedTeams.delete(+t);
     team.get("players").removeAt(index);
   }
 
@@ -69,7 +69,7 @@ export class SampleformComponent implements OnInit {
     this.selectedTeams.clear();
     this.TeamSelects.forEach(ts => {
       const selectedVal = ts.nativeElement.value;
-      if (selectedVal && selectedVal !== "undefined") this.selectedTeams.add(selectedVal);
+      if (selectedVal && selectedVal !== "undefined") this.selectedTeams.add(+selectedVal);
     });
 
     this.selectedTeams.forEach(st => {
@@ -79,6 +79,6 @@ export class SampleformComponent implements OnInit {
   }
 
   isSelected(lang: string) {
-    return this.selectedTeams.has(lang);
+    return this.selectedTeams.has(+lang);
   }
 }

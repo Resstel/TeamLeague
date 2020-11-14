@@ -20,7 +20,7 @@
         >Team Name <select #selectTeam formControlName="team_name" (change)="selected(selectTeam.value,i)">
           <option value="undefined" disabled> Select team</option>
           <ng-container *ngFor="let T of teamList">
-            <option *ngIf="selectTeam.value === T.name || !isSelected(T.name)" value={{T.name}} [ngValue]="T.name">
+            <option *ngIf="+selectTeam.value == T.id || !isSelected(T.id)" value={{T.id}} [ngValue]="T.id">
               {{T.name}}
             </option>
           </ng-container>
