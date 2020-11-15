@@ -17,15 +17,15 @@
       [formGroupName]="teamIndex"
     >
       <label
-        >Team Name <select #selectTeam formControlName="team_name" (change)="selected(selectTeam.value,i)">
+        >Team Name <select #selectTeam formControlName="team_name" (change)="selected(selectTeam.value,$event.target.value,i)">
           <option value="undefined" disabled> Select team</option>
-          <ng-container *ngFor="let T of teamList">
-            <option *ngIf="+selectTeam.value == T.id || !isSelected(T.id)" value={{T.id}} [ngValue]="T.id">
+          <ng-container *ngFor="let T of teamList; let i = index">
+            <option *ngIf="ss(selectTeam.value) == T.id || !isSelected(T.id)" [ngValue]="T.id">
               {{T.name}}
             </option>
           </ng-container>
           </select>
-        <button (click)="deleteTeam(teamIndex)">x</button></label
+        <button (click)="deleteTeam(teamIndex, selectTeam.value)">x</button></label
       >
       <hr />
       <button type="button" (click)="addPlayer(team)">Add Player</button>

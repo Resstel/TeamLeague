@@ -52,7 +52,8 @@ export class SampleformComponent implements OnInit {
     (this.leagueForm.get("teams") as FormArray).push(this.teams);
   }
 
-  deleteTeam(index) {
+  deleteTeam(index, t: string) {
+    this.selectedTeams.delete(+t[3]);
     (this.leagueForm.get("teams") as FormArray).removeAt(index);
   }
 
@@ -60,16 +61,20 @@ export class SampleformComponent implements OnInit {
     team.get("players").push(this.players);
   }
 
-  deletePlayer(team, index, t: string) {
-    this.selectedTeams.delete(+t);
+  deletePlayer(team, index) {
     team.get("players").removeAt(index);
   }
 
-  selected() {
+  selected(a, b, c) {
+    console.log("ngValue" + b + "value reference" + a)
     this.selectedTeams.clear();
     this.TeamSelects.forEach(ts => {
       const selectedVal = ts.nativeElement.value;
-      if (selectedVal && selectedVal !== "undefined") this.selectedTeams.add(+selectedVal);
+      if (selectedVal !== "undefined")
+      {
+        var selectval1 = selectedVal.slice(3,selectedVal.length);
+      }
+      if (selectval1 && selectedVal !=="undefined") this.selectedTeams.add(+selectval1);
     });
 
     this.selectedTeams.forEach(st => {
@@ -78,7 +83,19 @@ export class SampleformComponent implements OnInit {
     console.log("==================================");
   }
 
-  isSelected(lang: string) {
-    return this.selectedTeams.has(+lang);
+  isSelected(lang: number) {
+    return this.selectedTeams.has(lang);
   }
-}
+
+  selectedCompare(index, val)
+  {
+    var valueStrinf =(index+':'+' '+val).toString();
+    //console.log('value string'+ valueStrinf)
+  return valueStrinf;
+  }
+
+  ss(val)
+  {
+    return val.split(" ").pop();
+  }
+  }
