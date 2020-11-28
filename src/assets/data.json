@@ -1,0 +1,10 @@
+
+[
+  { 
+"league_details": { "name": "La Liga", "founder": "Spain" }, 
+"teams": [ { "team_name": "Real madrid", "players": [ { "player_name": "Hazard", "player_number": "7" } ] }, 
+           { "team_name": "Fc Barcalone", "players": [ { "player_name": "Lionel Messi", "player_number": "10" } ] }
+         ]
+        } 
+
+]
